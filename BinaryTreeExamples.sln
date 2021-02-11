@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryTreeExamples", "BinaryTreeExamples\BinaryTreeExamples.csproj", "{94440A80-2A5A-4213-BF09-19896BED9DDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructure", "..\..\..\Downloads\Tal\DataStructure\DataStructure.csproj", "{F4C820A7-9076-464D-8333-6BC843E34A1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94440A80-2A5A-4213-BF09-19896BED9DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94440A80-2A5A-4213-BF09-19896BED9DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94440A80-2A5A-4213-BF09-19896BED9DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94440A80-2A5A-4213-BF09-19896BED9DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4C820A7-9076-464D-8333-6BC843E34A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4C820A7-9076-464D-8333-6BC843E34A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4C820A7-9076-464D-8333-6BC843E34A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4C820A7-9076-464D-8333-6BC843E34A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6165F6FB-6F61-4272-9772-CF1E87F285EF}
+	EndGlobalSection
+EndGlobal
