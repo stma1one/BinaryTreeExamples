@@ -107,6 +107,65 @@ namespace BinaryTreeExamples
 
             }
         }
+        public static int CountNodesInTree<T> (BinNode<T> t)
+        {
+            if (t == null)
+                return 0;
+            int current = 1;
+            int left = CountNodesInTree(t.GetLeft());
+            int right = CountNodesInTree(t.GetRight());
+            return current + left + right;
+            //return 1+CountNodesInTree(t.GetLeft())+CountNodesInTree(t.GetRight());
+        }
+
+        public static bool SearchBinTree<T>(BinNode<T> t,T val)
+        {
+            if (t == null)
+                return false;
+
+            if (t.GetValue().Equals(val))
+                return true;
+            return SearchBinTree(t.GetLeft(), val) || SearchBinTree(t.GetRight(), val);
+
+            //(t.GetValue().Equals(val)||SearchBinTree(t.GetLeft(), val) || SearchBinTree(t.GetRight(), val);
+
+        }
+
+        public static bool IsFullBinTree<T>(BinNode<T> t)
+        {
+            if (t == null)
+                return true;
+
+            if((t.HasLeft()&&!t.HasRight())||(!t.HasLeft()&&t.HasRight()))
+                return false;
+
+            return IsFullBinTree(t.GetLeft()) && IsFullBinTree(t.GetRight());
+        }
+
+        public static int BinTreeHight<T> (BinNode<T> t)
+        {
+            if (t == null)
+                return 0;
+            if (!t.HasLeft() && !t.HasRight())
+                return 0;
+
+            return 1 + Math.Max(BinTreeHight(t.GetLeft()), BinTreeHight(t.GetRight()));
+
+
+        }
+
+        public static void PrintEvenNodes(BinNode<int> t)
+        {
+            if (t != null)
+            {
+                if (t.GetValue() % 2 == 0)
+                    Console.WriteLine(t.GetValue());
+                PrintEvenNodes(t.GetLeft());
+                PrintEvenNodes(t.GetRight());
+            }
+        }
+
+
 
         static void Main(string[] args)
         {
@@ -121,7 +180,9 @@ namespace BinaryTreeExamples
             //            BinNode<string> root = CreateStringTree();
             BinNode<int> tree = RandomCreateTree(2,new Random(),10,80);
             Console.WriteLine(tree);
-            PrintInOrderTree(tree);
+            PrintEvenNodes(tree);
+
+           // PrintInOrderTree(tree);
 
            
         }
