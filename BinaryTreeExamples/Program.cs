@@ -166,6 +166,108 @@ namespace BinaryTreeExamples
         }
 
 
+        /// <summary>
+        /// h- גובה העץ
+        /// n- מספר הצמתים בעץ
+        /// O(h*n)
+        /// h=n-1 worst case (עץ שרשרת)
+        /// =~O(n^2)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static int BinTreeWidth<T>(BinNode<T> t)
+        {
+            int maxWidth = 0;
+            int treeHeight = BinTreeHight(t);
+
+            for (int i = 0; i <= treeHeight; i++)
+            {
+                int nodesInLevel = CountNodesInLevel(t, i, 0);
+                if (nodesInLevel > maxWidth)
+                    maxWidth = nodesInLevel;
+            }
+            return maxWidth;
+
+        }
+
+        /// <summary>
+        /// h=גובה של העץ
+        /// n=מספר הצמתים
+        /// o(h) + o(n) = > o(n)
+        /// (ראו את הקשר בין 
+        /// h ל n 
+        /// בפעולה הקודמת
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static int BinTreeWidthV2<T>(BinNode<T> t)
+        {
+           
+            int treeHeight = BinTreeHight(t);
+            int[] countLevels = new int[treeHeight + 1];
+            int maxWidth = 0;
+
+            CountNodesInLevel(t, countLevels, 0);
+            for (int i =0; i < countLevels.Length; i++)
+            {
+                if (countLevels[i] > maxWidth)
+                    maxWidth = countLevels[i];
+            }
+            return maxWidth;
+
+               
+        }
+        /// <summary>
+        ///פעולה מקבלת מצביע לראש עץ, מערך מונים המייצג את הרמות בעץ והרמה הנוכחית שנבדקת
+        ///הפעולה תוסיף 1 בתא המייצג את הרמה הנוכחית בכל פעם שנקלת בצומת
+        ///
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t">עץ</param>
+        /// <param name="countLevels">מערך מונים המייצג את הרמות בעץ</param>
+        /// <param name="currLevel">הרמה הנוכחית שנבדקת</param>
+        private static void CountNodesInLevel<T>(BinNode<T> t, int[] countLevels, int currLevel)
+        {
+            //עץ ריק/הגענו לסוף מסלול
+            if (t == null)
+                return;
+            //ספור את הצומת הנוכחי והוסף 1 לתא המייצג את הרמה הנוכחית בעץ
+            countLevels[currLevel]++;
+            //רק לרמה הבאה בתת עץ שמאל
+            CountNodesInLevel(t.GetLeft(), countLevels, currLevel + 1);
+            //רק לרמה הבאה בתת עץ ימין
+            CountNodesInLevel(t.GetRight(), countLevels, currLevel + 1);
+
+
+
+        }
+
+     
+
+        
+        /// <summary>
+        /// הפעולה מקבלת שורש של עץ, רמה לבדיקה ורמה נוכחית בעץ ומחזירה כמה צמתים יש ברמה לבדיקה
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t">שורש העץ</param>
+        /// <param name="level">רמה לבדיקה</param>
+        /// <param name="currLevel">רמה נוכחית</param>
+        /// <returns></returns>
+        private static int CountNodesInLevel<T>(BinNode<T> t, int level,int currLevel)
+        {
+            //תנאי עצירה אם עץ ריק
+            if (t == null)
+                return 0;
+            //אם הגענו לרמה נספור את הצומת הנוכחית
+            if(currLevel==level)
+            {
+                return 1;
+            }
+            //כל עוד לא הגענו לרמה שהבדיקה- נמשיך בסריקה
+            return CountNodesInLevel(t.GetLeft(), level, currLevel + 1) + CountNodesInLevel(t.GetRight(), level, currLevel + 1);
+        }
 
         static void Main(string[] args)
         {
