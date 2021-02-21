@@ -269,6 +269,136 @@ namespace BinaryTreeExamples
             return CountNodesInLevel(t.GetLeft(), level, currLevel + 1) + CountNodesInLevel(t.GetRight(), level, currLevel + 1);
         }
 
+        public static void BreadthScan<T>(BinNode<T> t)
+        {
+            //תור עזר של צמתים
+            Queue<BinNode<T>> qNodes = new Queue<BinNode<T>>();
+            //הכנסת השורש
+            qNodes.Insert(t);
+            while(!qNodes.IsEmpty())
+            {
+                //נשלוף את הצומת
+                BinNode<T> temp = qNodes.Remove();
+                //....קוד שנרצה לבצע על הצומת
+                //הכנסה לתור הילד השמאלי
+                if (temp.HasLeft())
+                    qNodes.Insert(t.GetLeft());
+                //הכנסה לתור הילד הימני
+                if (temp.HasRight())
+                    qNodes.Insert(t.GetRight());
+            }
+        }
+
+        public static void PrintTreeLevels<T>(BinNode<T> t)
+        {
+            //תור עזר של צמתים
+            Queue<BinNode<T>> qNodes = new Queue<BinNode<T>>();
+            //הכנסת השורש
+            qNodes.Insert(t);
+            while (!qNodes.IsEmpty())
+            {
+                //נשלוף את הצומת
+                BinNode<T> temp = qNodes.Remove();
+                //קוד לביצוע
+                Console.WriteLine(temp.GetValue());
+                if (temp.HasLeft())
+                    qNodes.Insert(t.GetLeft());
+                if (temp.HasRight())
+                    qNodes.Insert(t.GetRight());
+            }
+        }
+
+        public static void PrintTreeWithLevels<T>(BinNode<T> t)
+        {
+            //תור עזר של צמתים
+            Queue<BinNode<T>> qNodes = new Queue<BinNode<T>>();
+            Queue<int> levels = new Queue<int>();
+            //הכנסת השורש
+            qNodes.Insert(t);
+            int currLevel = 0;
+            levels.Insert(currLevel);
+            while (!qNodes.IsEmpty())
+            {
+                //נשלוף את הצומת
+                BinNode<T> temp = qNodes.Remove();
+                currLevel = levels.Remove();
+                //קוד לביצוע
+                Console.WriteLine(temp.GetValue()+"-"+"level:" +currLevel );
+                if (temp.HasLeft())
+                {
+                    qNodes.Insert(t.GetLeft());
+                    levels.Insert(currLevel + 1);
+                }
+                if (temp.HasRight())
+                {
+                    qNodes.Insert(t.GetRight());
+                    levels.Insert(currLevel + 1);
+                }
+            }
+        }
+
+
+        public static int GetWidthBinTreeLevelSearch<T>(BinNode<T> t)
+        {
+            //תור עזר של צמתים
+            Queue<BinNode<T>> qNodes = new Queue<BinNode<T>>();
+            Queue<int> levels = new Queue<int>();
+            int max = 0;
+
+            int currNodesInLevel = 0;
+            //הכנסת השורש
+            qNodes.Insert(t);
+            //רמה נוכחית
+            int currLevel = 0;           
+            levels.Insert(currLevel);
+            max = currNodesInLevel;
+            while (!qNodes.IsEmpty())
+            {
+                //נשלוף את הצומת
+                BinNode<T> temp = qNodes.Remove();
+                //נשלוף את הרמה של הצומת
+                int level = levels.Remove();
+
+
+                //קוד לביצוע
+                //אם הרמה זהה
+                if (level == currLevel)
+                {
+                    //נספור
+                    currNodesInLevel++;
+                    //נבדוק מקסימום
+                    if (currNodesInLevel > max)
+                        max = currNodesInLevel;
+                }
+                //החלפת רמה
+                else
+                {
+                    currNodesInLevel = 0;
+                    currLevel = level;
+                }
+
+                if (temp.HasLeft())
+                {
+
+                    qNodes.Insert(t.GetLeft());
+                    levels.Insert(currLevel + 1);
+                    
+
+                }
+                if (temp.HasRight())
+                {
+                    qNodes.Insert(t.GetRight());
+                    levels.Insert(currLevel + 1);
+                   
+                }
+                
+                
+
+            }
+            return max;
+        }
+
+
         static void Main(string[] args)
         {
             //BinNode<int> root = new BinNode<int>(1);
