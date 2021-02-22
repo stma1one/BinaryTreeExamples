@@ -1,5 +1,5 @@
 ﻿using System;
-using DataStructure;
+using DataStructureCore;
 namespace BinaryTreeExamples
 {
     class Program
@@ -343,15 +343,19 @@ namespace BinaryTreeExamples
             //תור עזר של צמתים
             Queue<BinNode<T>> qNodes = new Queue<BinNode<T>>();
             Queue<int> levels = new Queue<int>();
+            
+            //מקסימום הכולל
             int max = 0;
-
+            //מונה צמתים ברמה
             int currNodesInLevel = 0;
+            //רמה נוכחית שכרגע נספרת
+            int currLevel = 0;
+            
             //הכנסת השורש
             qNodes.Insert(t);
-            //רמה נוכחית
-            int currLevel = 0;           
+                     
             levels.Insert(currLevel);
-            max = currNodesInLevel;
+            
             while (!qNodes.IsEmpty())
             {
                 //נשלוף את הצומת
@@ -362,16 +366,15 @@ namespace BinaryTreeExamples
 
                 //קוד לביצוע
                 //אם הרמה זהה
-                if (level == currLevel)
+              if(currLevel==level)
                 {
-                    //נספור
                     currNodesInLevel++;
-                    //נבדוק מקסימום
                     if (currNodesInLevel > max)
                         max = currNodesInLevel;
+                                          
                 }
                 //החלפת רמה
-                else
+                 
                 {
                     currNodesInLevel = 0;
                     currLevel = level;
