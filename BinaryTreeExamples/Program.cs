@@ -401,6 +401,25 @@ namespace BinaryTreeExamples
             return max;
         }
 
+        /// <summary>
+        /// פעולה המקבלת ערך ומוסיפה אותו לעץ החיפוש
+        /// </summary>
+        /// <param name="t">שורש העץ</param>
+        /// <param name="val">ערך להכנסה</param>
+        /// <returns></returns>
+        public static BinNode<int> CreateSearchTree(BinNode<int>t,int val)
+        {
+            //אם העץ ריק
+            if (t == null)
+                return new BinNode<int>(val);
+            //אם הערך קטן מהשורש= הכנס לתת עץ שמאל
+            if (t.GetValue() > val)
+                t.SetLeft(CreateSearchTree(t.GetLeft(), val));
+            //אחרת הכנס לתת עץ ימין
+            else
+                t.SetRight(CreateSearchTree(t.GetRight(), val));
+            return t;
+        }
 
         static void Main(string[] args)
         {
@@ -413,11 +432,17 @@ namespace BinaryTreeExamples
             //Console.WriteLine(root);
 
             //            BinNode<string> root = CreateStringTree();
-            BinNode<int> tree = RandomCreateTree(2,new Random(),10,80);
-            Console.WriteLine(tree);
-            PrintEvenNodes(tree);
-
-           // PrintInOrderTree(tree);
+           // BinNode<int> tree = RandomCreateTree(2,new Random(),10,80);
+            //Console.WriteLine(tree);
+            //PrintEvenNodes(tree);
+            BinNode<int> r= null;
+            Random rnd = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                r = CreateSearchTree(r, rnd.Next(1, 101));
+            }
+            Console.WriteLine(r);
+            PrintInOrderTree(r);
 
            
         }
