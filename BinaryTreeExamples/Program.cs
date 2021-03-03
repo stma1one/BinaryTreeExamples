@@ -131,6 +131,20 @@ namespace BinaryTreeExamples
 
         }
 
+        public static int MaxInTree(BinNode<int> t)
+        {
+            return MaxInTree(t, t.GetValue());
+        }
+        public static int MaxInTree(BinNode<int> t, int max)
+        {
+            if (t == null)
+                return max;
+            if (t.GetValue() > max)
+                max = t.GetValue();
+            return Math.Max(MaxInTree(t.GetLeft(), max), MaxInTree(t.GetRight(), max));
+
+
+        }
         public static bool IsFullBinTree<T>(BinNode<T> t)
         {
             if (t == null)
@@ -421,6 +435,25 @@ namespace BinaryTreeExamples
             return t;
         }
 
+
+
+        public static bool IsBst(BinNode<int> t)
+        {
+            //אם עץ ריק
+            if (t == null)
+                return true;
+            //אם יש ילד שמאלי גדול מהשורש הנוכחי
+            if (t.HasLeft())
+                if (t.GetValue() <= t.GetLeft().GetValue())
+                    return false;
+            //אם יש ילד ימני קטן מהשורש הנוכחי
+            if (t.HasRight())
+                if (t.GetValue() > t.GetRight().GetValue())
+                    return false;
+            //נבדק שגם תת עץ שמאל וגם תת עץ ימין הם עץ חיפוש
+            return (IsBst(t.GetLeft()) && IsBst(t.GetRight()));
+
+        }
         static void Main(string[] args)
         {
             //BinNode<int> root = new BinNode<int>(1);
@@ -431,9 +464,9 @@ namespace BinaryTreeExamples
             //root.SetRight(right);
             //Console.WriteLine(root);
 
-            //            BinNode<string> root = CreateStringTree();
-           // BinNode<int> tree = RandomCreateTree(2,new Random(),10,80);
-            //Console.WriteLine(tree);
+            //        BinNode<string> root = CreateStringTree();
+            BinNode<int> tree = RandomCreateTree(2,new Random(),10,80);
+            Console.WriteLine(tree);
             //PrintEvenNodes(tree);
             BinNode<int> r= null;
             Random rnd = new Random();
@@ -441,9 +474,18 @@ namespace BinaryTreeExamples
             {
                 r = CreateSearchTree(r, rnd.Next(1, 101));
             }
+
+            BinNode<int> t = new BinNode<int>(54);
+            BinNode<int> left = new BinNode<int>(null, 48, new BinNode<int>(54));
+            t.SetLeft(left);
+            BinNode<int> right = new BinNode<int>(new BinNode<int>(63), 77, null);
+            t.SetRight(right);
+
             Console.WriteLine(r);
             PrintInOrderTree(r);
-
+          
+       
+            
            
         }
     }
