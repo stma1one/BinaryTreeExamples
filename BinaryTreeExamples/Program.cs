@@ -454,6 +454,45 @@ namespace BinaryTreeExamples
             return (IsBst(t.GetLeft()) && IsBst(t.GetRight()));
 
         }
+        public static bool IsLeaf<T>(BinNode<T> t)
+        { return !t.HasLeft() && !t.HasRight(); }
+
+        /// <summary>
+        /// תרגיל פתרון עץ זיגזג
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// פתרון לטפל בשורש של העץ ולא עץ עלה
+        public static bool IsZigZagTree<T>(BinNode<T> t)
+        {
+            //אם העץ ריק או עץ עלה
+            if (t == null || IsLeaf(t))
+                return false;
+            //בודקים תת עץ שמאל וגם תת עץ ימין שכל הצמתים חוץ מהשורש מקיימים את התנאים
+            return IsZigZagTree(t.GetLeft(), true) && IsZigZagTree(t.GetRight(), false);
+        }
+        /// <summary>
+        /// תרגיל פתרון עץ זיגזג
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="son"></param>
+        /// <param name="leftSon">משתנה בוליאני שמציין האם אני כרגע בבן שמאלי או בבן ימני</param>
+        /// <returns></returns>
+        public static bool IsZigZagTree<T> (BinNode<T> son,bool leftSon )
+        {
+            //אם הגעתי לעלה או סיימתי לעבור על תת העץ נחזיר אמת
+            if (son==null||IsLeaf(son))
+                return true;
+            //אם בן שמאלי ואין לו בן ימני נחזיר שקר
+            if (leftSon && !son.HasRight())
+                return false;
+            //אם בן לא שמאלי ואין לו ילד שמאלי נחזיר שקר
+            if (!leftSon && !son.HasLeft())
+                return false;
+            //נמשיך לבדוק את תתי העצים
+            return IsZigZagTree(son.GetLeft(), true) && IsZigZagTree(son.GetRight(), false);
+        }
         static void Main(string[] args)
         {
             //BinNode<int> root = new BinNode<int>(1);
